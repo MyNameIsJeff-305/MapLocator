@@ -16,7 +16,6 @@ const app = express();
 app.use(morgan('dev'));
 app.use(cookieParser());
 app.use(express.json());
-app.use(routes);
 
 //Security Middleware
 if(!isProduction) {
@@ -33,10 +32,12 @@ app.use(
     csurf({
         cookie: {
             secure: isProduction,
-            sameSite: isProduction && "Lax";
+            sameSite: isProduction && "Lax",
             httpOnly: true
         }
     })
 );
+
+app.use(routes);
 
 module.exports = app;
