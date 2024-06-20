@@ -5,7 +5,13 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       User.hasMany(
         models.Spot, {
-          foreignKey: 'createdBy'
+          foreignKey: 'createdBy',
+          onDelete: 'SET DEFAULT'
+        }),
+      User.hasMany(
+        models.Log, {
+          foreignKey: 'userId',
+          onDelete: 'SET DEFAULT'
         }
       )
     }

@@ -8,17 +8,25 @@ module.exports = (sequelize, DataTypes) => {
       Spot.belongsTo(
         models.User, {
         foreignKey: 'createdBy',
-      })
+        onDelete: 'SET DEFAULT'
+      }),
+        Spot.hasMany(
+          models.Log, {
+          foreignKey: 'spotId',
+          onDelete: 'CASCADE'
+        }
+        )
     }
   }
   Spot.init({
     createdBy: {
       type: DataTypes.INTEGER,
-      allowNull: false,
+      allowNull: true,
       references: {
         model: 'Users',
         key: 'id'
-      }
+      },
+      onDelete: 'SET NULL'
     },
     address: {
       type: DataTypes.STRING,
