@@ -4,22 +4,29 @@ const {
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class Spot extends Model {
-
     static associate(models) {
       Spot.belongsTo(
         models.User, {
         foreignKey: 'createdBy',
-      })
+        onDelete: 'SET DEFAULT'
+      }),
+        Spot.hasMany(
+          models.Log, {
+          foreignKey: 'spotId',
+          onDelete: 'CASCADE'
+        }
+        )
     }
   }
   Spot.init({
     createdBy: {
       type: DataTypes.INTEGER,
-      allowNull: false,
+      allowNull: true,
       references: {
         model: 'Users',
         key: 'id'
-      }
+      },
+      onDelete: 'SET NULL'
     },
     address: {
       type: DataTypes.STRING,
@@ -47,6 +54,14 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       validate: {
         len: [0, 30]
+      }
+    },
+    zipCode: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      validate: {
+        min: 10000,
+        max: 99999,
       }
     },
     lat: {
