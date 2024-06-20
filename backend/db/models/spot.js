@@ -4,7 +4,6 @@ const {
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class Spot extends Model {
-
     static associate(models) {
       Spot.belongsTo(
         models.User, {
@@ -47,6 +46,14 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       validate: {
         len: [0, 30]
+      }
+    },
+    zipCode: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      validate: {
+        min: 10000,
+        max: 99999,
       }
     },
     lat: {
