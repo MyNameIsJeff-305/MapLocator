@@ -10,12 +10,17 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: 'createdBy',
         onDelete: 'SET DEFAULT'
       }),
-        Spot.hasMany(
-          models.Log, {
+      Spot.hasMany(
+        models.Log, {
+        foreignKey: 'spotId',
+        onDelete: 'CASCADE'
+      }),
+      Spot.hasMany(
+        models.SpotMedia, {
           foreignKey: 'spotId',
           onDelete: 'CASCADE'
         }
-        )
+      )
     }
   }
   Spot.init({

@@ -1,34 +1,31 @@
+'use strict';
+/** @type {import('sequelize-cli').Migration} */
+
 let options = {};
-options.tableName = 'Spots';
 if (process.env.NODE_ENV === 'production') {
   options.schema = process.env.SCHEMA;  // define your schema in options object
 }
 
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('Logs', {
+    await queryInterface.createTable('SpotMedia', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      userId: {
-        type: Sequelize.INTEGER,
-        allowNull: true,
-        defaultValue: null,
+      url: {
+        type: Sequelize.STRING,
+        allowNull: false
       },
       spotId: {
         type: Sequelize.INTEGER,
-        allowNull: false
-      },
-      action: {
-        type: Sequelize.STRING(20),
-        allowNull: false
-      },
-      description: {
-        type: Sequelize.STRING(100),
-        allowNull: true
+        allowNull: false,
+        references: {
+          model: 'Spots',
+          key: 'id',
+        },
       },
       createdAt: {
         allowNull: false,
@@ -43,7 +40,7 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    options.tableName = 'Logs';
+    options.tableName = "SpotMedia";
     return queryInterface.dropTable(options);
   }
 };
