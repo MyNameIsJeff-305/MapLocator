@@ -9,6 +9,7 @@ const { User } = require('../../db/models');
 
 const router = express.Router();
 
+//Middlewares
 const validateSignup = [
     check('email')
         .exists({ checkFalsy: true })
