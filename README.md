@@ -274,11 +274,10 @@ Returns all the spots.
           "lng": -122.4730327,
           "name": "App Academy",
           "description": "Place where web developers are created",
+          "previewImage": "image url",
           "price": 123,
           "createdAt": "2021-11-19 20:39:36",
           "updatedAt": "2021-11-19 20:39:36",
-          "avgRating": 4.5,
-          "previewImage": "image url"
         }
       ]
     }
